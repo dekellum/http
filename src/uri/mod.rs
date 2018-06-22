@@ -38,10 +38,12 @@ use std::error::Error;
 use self::scheme::Scheme2;
 
 pub use self::authority::Authority;
+pub use self::builder::Builder;
 pub use self::path::PathAndQuery;
 pub use self::scheme::Scheme;
 
 mod authority;
+mod builder;
 mod path;
 mod scheme;
 #[cfg(test)]
@@ -176,6 +178,11 @@ const URI_CHARS: [u8; 256] = [
 ];
 
 impl Uri {
+    /// dox
+    pub fn builder() -> Builder {
+        Builder::new()
+    }
+
     /// Attempt to convert a `Uri` from `Parts`
     pub fn from_parts(src: Parts) -> Result<Uri, InvalidUriParts> {
         if src.scheme.is_some() {
@@ -287,6 +294,11 @@ impl Uri {
         }
 
         parse_full(s)
+    }
+
+    /// dox
+    pub fn into_builder(self) -> Builder {
+        self.into()
     }
 
     /// Convert a `Uri` into `Parts`.
