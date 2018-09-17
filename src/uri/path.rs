@@ -550,4 +550,12 @@ mod tests {
 
         assert!(path.parse::<PathAndQuery>().is_ok());
     }
+
+    // As written, the double percent special case does a break out of the
+    // check loop, thereby allowing any characters in the path afterwords.
+    #[test]
+    fn double_percent_should_not_subvert_checks() {
+        let pq = "/b/%%\n\t?awe=some".parse::<PathAndQuery>();
+        assert!(pq.is_err(), format!("allowed path: [{:?}]", pq.unwrap().path()));
+    }
 }
