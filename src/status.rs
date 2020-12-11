@@ -309,8 +309,7 @@ macro_rules! impl_numeric_support {
 }
 
 impl_numeric_support! {
-    u16, u32, usize, u64,
-    i16, i32, isize, i64
+    u16, u32, usize, u64
 }
 
 macro_rules! status_codes {
